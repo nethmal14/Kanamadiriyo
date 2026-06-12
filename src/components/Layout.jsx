@@ -1,5 +1,5 @@
-import { Outlet, Link } from 'react-router-dom';
-import { Eye, ShieldAlert } from 'lucide-react';
+import { Outlet, Link, useLocation } from 'react-router-dom';
+import { Eye, ShieldAlert, Radio } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { doc, onSnapshot, increment, updateDoc, setDoc, getDoc } from 'firebase/firestore';
 import { db } from '../firebase';
@@ -7,6 +7,7 @@ import { db } from '../firebase';
 export default function Layout() {
   const [visitorCount, setVisitorCount] = useState(0);
   const [showVisitors, setShowVisitors] = useState(false);
+  const location = useLocation();
 
   useEffect(() => {
     const initVisitorCount = async () => {
@@ -16,7 +17,6 @@ export default function Layout() {
       if (!docSnap.exists()) {
         await setDoc(docRef, { visitorCount: 1, showVisitors: true, ytLink: 'https://www.youtube.com/embed/live_stream?channel=YOUR_CHANNEL_ID' });
       } else {
-        // Increment visitor count on load (in a real app, maybe use session storage to avoid double counting)
         if (!sessionStorage.getItem('visited')) {
           await updateDoc(docRef, {
             visitorCount: increment(1)
@@ -43,19 +43,26 @@ export default function Layout() {
     <>
       <nav className="nav-bar">
         <Link to="/" className="brand">
-          <ShieldAlert className="brand-icon" size={28} />
+          <ShieldAlert className="brand-icon" size={32} />
           <span>PODCASTER</span>
         </Link>
-        <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
+        <div style={{ display: 'flex', gap: '1.5rem', alignItems: 'center' }}>
           {showVisitors && (
             <div className="visitor-count" title="Current Visitors">
               <Eye size={16} />
               {visitorCount.toLocaleString()}
             </div>
           )}
-          <Link to="/admin" className="btn" style={{ background: 'transparent', border: 'none', color: 'var(--text-secondary)' }}>
-            Admin
-          </Link>
+          {location.pathname !== '/live' && (
+            <Link to="/live" className="btn" style={{ borderColor: 'var(--accent-glow)', color: 'var(--accent-glow)' }}>
+              <Radio size={18} className="animate-pulse" /> Live Stream
+            </Link>
+          )}
+          {location.pathname === '/live' && (
+            <Link to="/" className="btn">
+              Back to Files
+            </Link>
+          )}
         </div>
       </nav>
       <main className="container">

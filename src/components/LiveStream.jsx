@@ -16,12 +16,12 @@ export default function LiveStream() {
   }, []);
 
   return (
-    <div className="glass-panel" style={{ padding: '2px', display: 'flex', flexDirection: 'column', height: '100%' }}>
-      <div style={{ padding: '1rem', display: 'flex', alignItems: 'center', gap: '0.5rem', borderBottom: '1px solid var(--border-glass)' }}>
-        <Radio color="var(--danger)" className="animate-pulse" />
-        <h2 style={{ fontSize: '1.2rem', margin: 0 }}>LIVE TRANSMISSION</h2>
+    <div className="brutalist-panel" style={{ display: 'flex', flexDirection: 'column', height: '100%', padding: '0' }}>
+      <div style={{ padding: '1rem 1.5rem', display: 'flex', alignItems: 'center', gap: '0.75rem', borderBottom: '1px solid var(--border-color)', background: '#111' }}>
+        <Radio color="var(--alert)" className="animate-pulse" size={18} />
+        <h2 style={{ fontSize: '1rem', margin: 0, letterSpacing: '0.1em' }}>LIVE FEED</h2>
       </div>
-      <div className="video-container" style={{ borderRadius: '0 0 16px 16px', border: 'none' }}>
+      <div className="video-container" style={{ border: 'none', borderRadius: 0 }}>
         {ytLink ? (
           <iframe 
             src={ytLink} 
@@ -30,8 +30,8 @@ export default function LiveStream() {
             allowFullScreen>
           </iframe>
         ) : (
-          <div style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--text-secondary)' }}>
-            No active broadcast.
+          <div className="mono-text" style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--text-secondary)' }}>
+            NO ACTIVE TRANSMISSION
           </div>
         )}
       </div>

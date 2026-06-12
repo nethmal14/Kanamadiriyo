@@ -55,18 +55,19 @@ export default function LiveChat() {
   };
 
   return (
-    <div className="glass-panel chat-container">
-      <div style={{ padding: '1rem', display: 'flex', alignItems: 'center', gap: '0.5rem', borderBottom: '1px solid var(--border-glass)' }}>
-        <MessageSquare color="var(--accent-glow)" />
-        <h3 style={{ margin: 0 }}>SECURE CHAT</h3>
+    <div className="chat-container brutalist-panel">
+      <div style={{ padding: '1rem 1.5rem', display: 'flex', alignItems: 'center', gap: '0.75rem', borderBottom: '1px solid var(--border-color)', background: '#111' }}>
+        <MessageSquare size={18} />
+        <h3 style={{ margin: 0, fontSize: '1rem', letterSpacing: '0.1em' }}>SECURE CHANNEL</h3>
+        <span className="mono-text" style={{ marginLeft: 'auto', color: 'var(--text-secondary)' }}>{identity}</span>
       </div>
       
       <div className="chat-messages">
         {messages.map(msg => (
           <div key={msg.id} className="chat-message animate-fade-in">
             <div className="chat-meta">
-              <span className="chat-author">{msg.author}</span>
-              <span className="chat-time">
+              <span className="chat-author mono-text">{msg.author}</span>
+              <span className="chat-time mono-text" style={{ fontSize: '0.7rem' }}>
                 {msg.createdAt ? new Date(msg.createdAt.toDate()).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}) : '...'}
               </span>
             </div>
@@ -80,12 +81,12 @@ export default function LiveChat() {
         <input 
           type="text" 
           className="input" 
-          placeholder="Transmit message..." 
+          placeholder="TRANSMIT MESSAGE..." 
           value={input}
           onChange={(e) => setInput(e.target.value)}
           maxLength={200}
         />
-        <button type="submit" className="btn btn-primary" disabled={!input.trim()}>
+        <button type="submit" className="btn" disabled={!input.trim()}>
           <Send size={18} />
         </button>
       </form>

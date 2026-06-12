@@ -49,7 +49,7 @@ export default function Admin() {
 
   const handleLogin = (e) => {
     e.preventDefault();
-    if (password === 'admin123') { // Simple hardcoded password as requested for simplicity
+    if (password === 'admin123') { 
       setIsAuthenticated(true);
       localStorage.setItem('adminAuth', 'true');
     } else {
@@ -116,17 +116,17 @@ export default function Admin() {
 
   if (!isAuthenticated) {
     return (
-      <div className="admin-login glass-panel animate-fade-in" style={{ padding: '2rem' }}>
+      <div className="admin-login brutalist-panel animate-fade-in" style={{ padding: '3rem 2rem' }}>
         <ShieldIcon />
-        <h2 style={{ marginBottom: '1.5rem' }}>RESTRICTED ACCESS</h2>
+        <h2 style={{ marginBottom: '2rem', letterSpacing: '0.1em' }}>CLEARANCE REQUIRED</h2>
         <form onSubmit={handleLogin}>
           <input 
             type="password" 
-            className="input" 
-            placeholder="Enter Passcode" 
+            className="input mono-text" 
+            placeholder="ENTER PASSCODE" 
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            style={{ marginBottom: '1rem', textAlign: 'center', letterSpacing: '0.2em' }}
+            style={{ marginBottom: '1.5rem', textAlign: 'center', letterSpacing: '0.2em' }}
           />
           <button type="submit" className="btn btn-primary" style={{ width: '100%', justifyContent: 'center' }}>
             AUTHORIZE
@@ -137,19 +137,19 @@ export default function Admin() {
   }
 
   return (
-    <div className="admin-dashboard animate-fade-in">
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem' }}>
-        <h2>COMMAND CENTER</h2>
-        <button className="btn" onClick={handleLogout}>Log Out</button>
+    <div className="admin-dashboard animate-fade-in" style={{ padding: '2rem 0' }}>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '3rem', borderBottom: '1px solid var(--border-color)', paddingBottom: '1.5rem' }}>
+        <h1 style={{ fontSize: '2.5rem', margin: 0 }}>COMMAND CENTER</h1>
+        <button className="btn" onClick={handleLogout}>END SESSION</button>
       </div>
 
-      <div className="grid" style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))' }}>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(350px, 1fr))', gap: '2rem' }}>
         {/* Stream Settings */}
-        <div className="glass-panel admin-section">
+        <div className="brutalist-panel admin-section">
           <h3><Radio /> Stream Configuration</h3>
           <form onSubmit={handleUpdateSettings}>
             <div className="form-group">
-              <label>YouTube Embed URL</label>
+              <label className="mono-text">YouTube Embed URL</label>
               <input 
                 type="text" 
                 className="input" 
@@ -157,25 +157,24 @@ export default function Admin() {
                 onChange={(e) => setYtLink(e.target.value)} 
                 placeholder="https://www.youtube.com/embed/..." 
               />
-              <p style={{ fontSize: '0.8rem', marginTop: '0.5rem' }}>Note: Use the embed URL, not the watch URL.</p>
             </div>
             <div className="form-group" style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
-              <label style={{ margin: 0 }}>Visitor Counter:</label>
+              <label className="mono-text" style={{ margin: 0 }}>Visitor Counter:</label>
               <button type="button" className="btn" onClick={handleToggleVisitors}>
                 {showVisitors ? <Eye size={18} /> : <EyeOff size={18} />}
-                {showVisitors ? 'Visible' : 'Hidden'}
+                {showVisitors ? 'VISIBLE' : 'HIDDEN'}
               </button>
             </div>
-            <button type="submit" className="btn btn-primary">Save Configuration</button>
+            <button type="submit" className="btn btn-primary">SAVE CONFIG</button>
           </form>
         </div>
 
         {/* New Post */}
-        <div className="glass-panel admin-section">
+        <div className="brutalist-panel admin-section">
           <h3><Edit3 /> Dispatch Intelligence Brief</h3>
           <form onSubmit={handleCreatePost}>
             <div className="form-group">
-              <label>Title</label>
+              <label className="mono-text">Title</label>
               <input 
                 type="text" 
                 className="input" 
@@ -185,51 +184,52 @@ export default function Admin() {
               />
             </div>
             <div className="form-group">
-              <label>Content (HTML Supported)</label>
+              <label className="mono-text">Content (HTML Supported)</label>
               <textarea 
                 className="input" 
                 value={postContent} 
                 onChange={(e) => setPostContent(e.target.value)} 
                 required 
                 placeholder="<p>Classified details...</p>"
+                style={{ fontFamily: 'monospace' }}
               />
             </div>
-            <button type="submit" className="btn btn-primary">Publish Brief</button>
+            <button type="submit" className="btn btn-primary">PUBLISH BRIEF</button>
           </form>
         </div>
       </div>
 
       {/* Chat Moderation */}
-      <div className="glass-panel admin-section" style={{ marginTop: '2rem' }}>
+      <div className="brutalist-panel admin-section" style={{ marginTop: '2rem' }}>
         <h3><Settings /> Chat Interception</h3>
-        <div style={{ maxHeight: '400px', overflowY: 'auto' }}>
+        <div style={{ maxHeight: '400px', overflowY: 'auto', border: '1px solid var(--border-color)' }}>
           <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left' }}>
             <thead>
-              <tr style={{ borderBottom: '1px solid var(--border-glass)' }}>
-                <th style={{ padding: '0.5rem' }}>Time</th>
-                <th style={{ padding: '0.5rem' }}>Identity</th>
-                <th style={{ padding: '0.5rem' }}>Message</th>
-                <th style={{ padding: '0.5rem', textAlign: 'right' }}>Action</th>
+              <tr style={{ borderBottom: '1px solid var(--border-color)', background: '#111' }}>
+                <th className="mono-text" style={{ padding: '1rem' }}>Time</th>
+                <th className="mono-text" style={{ padding: '1rem' }}>Identity</th>
+                <th className="mono-text" style={{ padding: '1rem' }}>Message</th>
+                <th className="mono-text" style={{ padding: '1rem', textAlign: 'right' }}>Action</th>
               </tr>
             </thead>
             <tbody>
               {messages.map(msg => (
-                <tr key={msg.id} style={{ borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
-                  <td style={{ padding: '0.5rem', color: 'var(--text-secondary)', fontSize: '0.85rem' }}>
+                <tr key={msg.id} style={{ borderBottom: '1px solid #222' }}>
+                  <td className="mono-text" style={{ padding: '1rem', color: 'var(--text-secondary)' }}>
                     {msg.createdAt ? new Date(msg.createdAt.toDate()).toLocaleString() : '...'}
                   </td>
-                  <td style={{ padding: '0.5rem', color: 'var(--accent-glow)' }}>{msg.author}</td>
-                  <td style={{ padding: '0.5rem', wordBreak: 'break-all' }}>{msg.text}</td>
-                  <td style={{ padding: '0.5rem', textAlign: 'right' }}>
-                    <button className="btn btn-danger" onClick={() => handleDeleteMessage(msg.id)} style={{ padding: '0.3rem 0.6rem' }}>
-                      <Trash2 size={14} />
+                  <td className="mono-text" style={{ padding: '1rem', color: 'var(--text-primary)' }}>{msg.author}</td>
+                  <td style={{ padding: '1rem', wordBreak: 'break-all', color: '#ccc' }}>{msg.text}</td>
+                  <td style={{ padding: '1rem', textAlign: 'right' }}>
+                    <button className="btn btn-danger" onClick={() => handleDeleteMessage(msg.id)} style={{ padding: '0.4rem 0.8rem' }}>
+                      <Trash2 size={16} />
                     </button>
                   </td>
                 </tr>
               ))}
               {messages.length === 0 && (
                 <tr>
-                  <td colSpan="4" style={{ padding: '1rem', textAlign: 'center', color: 'var(--text-secondary)' }}>No intercepted messages.</td>
+                  <td colSpan="4" className="mono-text" style={{ padding: '2rem', textAlign: 'center', color: 'var(--text-secondary)' }}>NO INTERCEPTED MESSAGES.</td>
                 </tr>
               )}
             </tbody>
@@ -242,7 +242,7 @@ export default function Admin() {
 
 function ShieldIcon() {
   return (
-    <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="var(--danger)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" style={{ marginBottom: '1rem' }}>
+    <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="var(--alert)" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" style={{ marginBottom: '1.5rem' }}>
       <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
       <path d="m9 12 2 2 4-4"/>
     </svg>

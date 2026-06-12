@@ -43,24 +43,24 @@ export default function Layout() {
     <>
       <nav className="nav-bar">
         <Link to="/" className="brand">
-          <ShieldAlert className="brand-icon" size={32} />
+          <ShieldAlert className="brand-icon" size={28} />
           <span>PODCASTER</span>
         </Link>
         <div style={{ display: 'flex', gap: '1.5rem', alignItems: 'center' }}>
           {showVisitors && (
-            <div className="visitor-count" title="Current Visitors">
+            <div className="mono-text" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', color: 'var(--text-secondary)' }} title="Current Visitors">
               <Eye size={16} />
               {visitorCount.toLocaleString()}
             </div>
           )}
           {location.pathname !== '/live' && (
-            <Link to="/live" className="btn" style={{ borderColor: 'var(--accent-glow)', color: 'var(--accent-glow)' }}>
-              <Radio size={18} className="animate-pulse" /> Live Stream
+            <Link to="/live" className="btn btn-danger">
+              <Radio size={16} /> INTERCEPT STREAM
             </Link>
           )}
           {location.pathname === '/live' && (
             <Link to="/" className="btn">
-              Back to Files
+              RETURN TO FILES
             </Link>
           )}
         </div>
